@@ -21,12 +21,14 @@ library(shiny.grid)
 ---
 
 ## Grid Usage
-The two main usage cases for `shiny.grid` are grid panels and grid pages:
+The two main usage cases for `shiny.grid` are grid panels and grid pages.
 
-### Grid panel
+---
+
+## Grid panel
 A Grid panel works similar to `div` with the exemption of allowing for a few attributes to be passed by name.
 
-#### areas
+#### ***AREAS***
 
 This is the visual representation of the css grid that you want to define. Its a vector of strings where each element represents a row in the grid, and corresponding names. Its value will be parsed to the css attribute `grid-template-areas`.  
 
@@ -38,7 +40,7 @@ areas = c(
 )
 ```
 
-#### rows
+#### ***ROWS***
 
 This defines the size of each row in the grid. By default rows split the available space equally. Translates to `grid-template-rows` in css. The number of elements in the string should be consistent with `areas`. If you defined 3 rows in areas, Make sure your `rows` also contain 3 measures.  
 
@@ -47,7 +49,7 @@ This defines the size of each row in the grid. By default rows split the availab
 rows = "100px 1fr 1fr"
 ```
 
-#### columns
+#### ***COLUMNS***
 
 This defines the size of each column in the grid. By default columns behave the same as columns, splitting the available space equally. Translates to `grid-template-columns` in css. Should be consistent with `areas`. If you defined 3 columns in areas, Make sure your `columns` also contain 3 measures.  
 
@@ -56,7 +58,7 @@ This defines the size of each column in the grid. By default columns behave the 
 columns = "200px 1fr 1fr 100px"
 ```
 
-#### gap
+#### ***GAP***
 
 Gap defines the space between each cell of the grid. This allows you to add some spacing between elements directly in the grid. Expects a single css measure as a string.
 
@@ -65,7 +67,9 @@ Gap defines the space between each cell of the grid. This allows you to add some
 gap = "10px"
 ```
 
-### Grid page
+---
+
+## Grid page
 
 Grid page allows you to define a full page consisting of a css grid, wby using the arguments available in `gridPanel`.
 
