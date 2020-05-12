@@ -1,6 +1,7 @@
-#' Create a page a with CSS grid layout
+#' Create a page a with CSS grid layout. Works as a page level wrapper for gridPanel
 #'
-#' @param ... Elements to include within the page
+#' @param ... Elements to include within the page. All arguments from gridPanel
+#'   can be passed as well.
 #' @param title The browser window title (defaults to the host URL of the page).
 #' @param fill_page Flag to tell the page if it should adjust the page to
 #'   adjust and fill the browser window size.
@@ -8,6 +9,9 @@
 #'   htmlDependency, for example the shiny bootstrap one (the default)
 #'   or a tagList with diferent dependencies
 #'
+#' @importFrom htmltools tags
+#' @importFrom shiny tagList
+#' @importFrom shiny bootstrapLib
 #' @return A UI definition that can be passed to the [shinyUI] function.
 #'
 #' @note See \url{https://css-tricks.com/snippets/css/complete-guide-grid/}
@@ -20,9 +24,9 @@
 #' gridPage(
 #'   title = "A grid page",
 #'   areas = c("area-1 area-1", "area-2 area-3"),
-#'   div(class = "area-1"),
-#'   div(class = "area-2"),
-#'   div(class = "area-3")
+#'   gridPanel(class = "area-1"),
+#'   gridPanel(class = "area-2"),
+#'   gridPanel(class = "area-3")
 #' )
 #'
 #' @export

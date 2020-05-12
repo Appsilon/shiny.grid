@@ -2,12 +2,13 @@
 % Please edit documentation in R/grid_page.R
 \name{gridPage}
 \alias{gridPage}
-\title{Create a page a with CSS grid layout}
+\title{Create a page a with CSS grid layout. Works as a page level wrapper for gridPanel}
 \usage{
 gridPage(..., title = NULL, fill_page = TRUE, dependency = bootstrapLib())
 }
 \arguments{
-\item{...}{Elements to include within the page}
+\item{...}{Elements to include within the page. All arguments from gridPanel
+can be passed as well.}
 
 \item{title}{The browser window title (defaults to the host URL of the page).}
 
@@ -22,7 +23,7 @@ or a tagList with diferent dependencies}
 A UI definition that can be passed to the [shinyUI] function.
 }
 \description{
-Create a page a with CSS grid layout
+Create a page a with CSS grid layout. Works as a page level wrapper for gridPanel
 }
 \note{
 See \url{https://css-tricks.com/snippets/css/complete-guide-grid/}
@@ -32,9 +33,9 @@ See \url{https://css-tricks.com/snippets/css/complete-guide-grid/}
 gridPage(
   title = "A grid page",
   areas = c("area-1 area-1", "area-2 area-3"),
-  div(class = "area-1"),
-  div(class = "area-2"),
-  div(class = "area-3")
+  gridPanel(class = "area-1"),
+  gridPanel(class = "area-2"),
+  gridPanel(class = "area-3")
 )
 
 }

@@ -4,18 +4,27 @@
 #' @param areas A list of named areas. Each element should contain
 #'   the names, per row, of each area of the grid. Expected values follow the
 #'   convension for the grid-template-areas css attribute.
-#' @param rows A string of css valid sizes separated by a space.
+#' @param rows A string or named list of strings of css valid sizes separated by a space.
 #'   Follows the convension for the grid-template-rows css attribute.
 #'   If not provided the existing space will be split equally acording to the
 #'   areas defined in areas.
-#' @param columns A string of css valid sizes separated by a space.
+#' @param columns A string or named list of strings of css valid sizes separated by a space.
 #'   Follows the convension for the grid-template-columns css attribute.
 #'   If not provided the existing space will be split equally acording to the
 #'   areas defined in areas.
+#' @param gap A string or named list of strings of a css valid size.
+#'   Follows the convension for the grid-template-gap css attribute.
+#'   If not provided defaults to zero pixels.
 #' @param id The html id of the panel container.
 #' @param class Custom classes to be added to the panel container.
 #' @param style Custom css style attributes to be added to the panel container.
 #'
+#' @importFrom stringi stri_remove_empty
+#' @importFrom stringi stri_rand_strings
+#' @importFrom htmltools tags
+#' @importFrom glue glue
+#' @importFrom shiny HTML
+#' @importFrom shiny div
 #' @return An HTML tagList.
 #'
 #' @details Behaves similar to normal HTML div tags, but simplifies
@@ -36,11 +45,11 @@
 #' @examples
 #' gridPanel(
 #'   areas = c("area-1 area-1", "area-2 area-3"),
-#'   rows = c"1fr 2fr",
-#'   columns = c"2fr 100px",
-#'   div(class = "area-1"),
-#'   div(class = "area-2"),
-#'   div(class = "area-3")
+#'   rows = "1fr 2fr",
+#'   columns = "2fr 100px",
+#'   gridPanel(class = "area-1"),
+#'   gridPanel(class = "area-2"),
+#'   gridPanel(class = "area-3")
 #' )
 #'
 #' @export
@@ -54,18 +63,7 @@ gridPanel <- function(...,
                       style = NULL
                     ) {
   # If there is no id, define a random one
-  id <- ifelse (!is.null(id), id, paste0("grid-", stringi::stri_rand_strings(1, 12)))
-
-  # Preprocess missing values
-  repeatRule<- function(options) {
-    paste0("repeat(", length(options), ", 1fr)")
-  }
-
-  uniqueCols <- function(options) {
-    stringi::stri_remove_empty(
-      unlist(strsplit(options[1], split=" "))
-    )
-  }
+  id <- ifelse (!is.null(id), id, paste0("grid-", stri_rand_strings(1, 12)))
 
   if(!is.null(areas) && !is.list(areas)) areas <- list(default = areas)
   if(!is.null(rows) && !is.list(rows)) rows <- list(default = rows)
@@ -113,7 +111,7 @@ gridPanel <- function(...,
           media_areas <- generateRule(id, "grid-template-areas", paste0("'", paste0(areas[[rule]], collapse = "' '"), "'"))
           css_areas <- paste0(
             css_areas,
-            do.call(glue::glue, list(wrapper, rules = media_areas))
+            do.call(glue, list(wrapper, rules = media_areas))
           )
         }
       }
@@ -125,7 +123,7 @@ gridPanel <- function(...,
     }
 
     children_style <- lapply(
-      stringi::stri_remove_empty(unique(unlist(strsplit(children_style_target, split=" ")))),
+      stri_remove_empty(unique(unlist(strsplit(children_style_target, split=" ")))),
       function(single){
         return(HTML(paste0("#", id, " > .", single, " { grid-area: ", single, ";} ")))
       }
@@ -147,7 +145,7 @@ gridPanel <- function(...,
           media_rows <- generateRule(id, "grid-template-rows", paste0(rows[[rule]]))
           css_rows <- paste0(
             css_rows,
-            do.call(glue::glue, list(wrapper, rules = media_rows))
+            do.call(glue, list(wrapper, rules = media_rows))
           )
         }
       }
@@ -171,7 +169,7 @@ gridPanel <- function(...,
           media_columns <- generateRule(id, "grid-template-columns", paste0(columns[[rule]]))
           css_columns <- paste0(
             css_columns,
-            do.call(glue::glue, list(wrapper, rules = media_columns))
+            do.call(glue, list(wrapper, rules = media_columns))
           )
         }
       }
@@ -194,7 +192,7 @@ gridPanel <- function(...,
           media_gap <- generateRule(id, "gap", paste0(gap[[rule]]))
           css_gap <- paste0(
             css_gap,
-            do.call(glue::glue, list(wrapper, rules = media_gap))
+            do.call(glue, list(wrapper, rules = media_gap))
           )
         }
       }

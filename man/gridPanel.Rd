@@ -11,6 +11,7 @@ gridPanel(
   columns = NULL,
   id = NULL,
   class = NULL,
+  gap = NULL,
   style = NULL
 )
 }
@@ -21,12 +22,12 @@ gridPanel(
 the names, per row, of each area of the grid. Expected values follow the
 convension for the grid-template-areas css attribute.}
 
-\item{rows}{A string of css valid sizes separated by a space.
+\item{rows}{A string or named list of strings of css valid sizes separated by a space.
 Follows the convension for the grid-template-rows css attribute.
 If not provided the existing space will be split equally acording to the
 areas defined in areas.}
 
-\item{columns}{A string of css valid sizes separated by a space.
+\item{columns}{A string or named list of strings of css valid sizes separated by a space.
 Follows the convension for the grid-template-columns css attribute.
 If not provided the existing space will be split equally acording to the
 areas defined in areas.}
@@ -34,6 +35,10 @@ areas defined in areas.}
 \item{id}{The html id of the panel container.}
 
 \item{class}{Custom classes to be added to the panel container.}
+
+\item{gap}{A string or named list of strings of a css valid size.
+Follows the convension for the grid-template-gap css attribute.
+If not provided defaults to zero pixels.}
 
 \item{style}{Custom css style attributes to be added to the panel container.}
 }
@@ -60,11 +65,11 @@ See \url{https://css-tricks.com/snippets/css/complete-guide-grid/}
 \examples{
 gridPanel(
   areas = c("area-1 area-1", "area-2 area-3"),
-  rows = c"1fr 2fr",
-  columns = c"2fr 100px",
-  div(class = "area-1"),
-  div(class = "area-2"),
-  div(class = "area-3")
+  rows = "1fr 2fr",
+  columns = "2fr 100px",
+  gridPanel(class = "area-1"),
+  gridPanel(class = "area-2"),
+  gridPanel(class = "area-3")
 )
 
 }

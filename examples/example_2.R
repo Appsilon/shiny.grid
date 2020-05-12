@@ -21,8 +21,8 @@ ui <- gridPage(
       )
     ),
     gap = list(
-      default = "0",
-      md = "20px",
+      default = "50px",
+      sm = "20px",
       xs = "5px"
     ),
 
