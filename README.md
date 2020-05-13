@@ -51,7 +51,7 @@ rows = "100px 1fr 1fr"
 
 #### ***COLUMNS***
 
-This defines the size of each column in the grid. By default columns behave the same as columns, splitting the available space equally. Translates to `grid-template-columns` in css. Should be consistent with `areas`. If you defined 3 columns in areas, Make sure your `columns` also contain 3 measures.  
+This defines the size of each column in the grid. By default columns behave the same as rows, splitting the available space equally. Translates to `grid-template-columns` in css. Should be consistent with `areas`. If you defined 3 columns in areas, Make sure your `columns` also contain 3 measures.  
 
  For example, lets say we have 4 columns but want the first row to use 200px of the space, last one 100px, while the other columns spit the remaining space:
 ```R
@@ -71,7 +71,7 @@ gap = "10px"
 
 ## Grid page
 
-Grid page allows you to define a full page consisting of a css grid, wby using the arguments available in `gridPanel`.
+Grid page allows you to define a full page consisting of a css grid, by using the arguments available in `gridPanel`.
 
 NOTE: By default `gridPage` loads all the required bootstrap dependencies. If your project uses a diferent ui framework, you can pass its dependencies via the `dependencies` argument, or by using `gridPanel` directly in your own `Page` function.
 
